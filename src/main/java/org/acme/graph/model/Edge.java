@@ -99,10 +99,10 @@ public class Edge {
 	public LineString getGeometry() {
 		if (this.geometry==null){
 			GeometryFactory gf = new GeometryFactory();
-		return gf.createLineString(new Coordinate[] {
-			source.getCoordinate(),
-			target.getCoordinate()
-		});
+			return gf.createLineString(new Coordinate[] {
+				source.getCoordinate(),
+				target.getCoordinate()
+			});
 		} else {
 			return this.geometry;
 		}
