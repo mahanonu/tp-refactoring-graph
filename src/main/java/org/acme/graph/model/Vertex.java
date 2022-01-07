@@ -3,6 +3,8 @@ package org.acme.graph.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.locationtech.jts.geom.Coordinate;
 
+import java.util.ArrayList;
+import java.util.List;
 /**
  * 
  * Un sommet dans un graphe
@@ -34,14 +36,22 @@ public class Vertex {
 	 * dijkstra - indique si le sommet est visité
 	 */
 	private boolean visited;
+	/**
+	 * Edges rentrants 
+	 */
+	@JsonIgnore
+	private List<Edge> inEdges;
+	/**
+	 * Edges sortants
+	 */
+	@JsonIgnore
+	private List<Edge> outEdges;
 
-	Vertex(Coordinate coordinate,String id) {
-		if (coordinate==null || id==null){
-			throw new NullPointerException("coordinate or id is null");
-		} else {
-			this.coordinate = coordinate;
-			this.id = id;
-		}
+
+
+	Vertex() {
+		this.inEdges = new ArrayList<>();
+		this.outEdges = new ArrayList<>();
 	}
 
 	public String getId() {
@@ -84,6 +94,14 @@ public class Vertex {
 
 	public void setVisited(boolean visited) {
 		this.visited = visited;
+	}
+
+	public List<Edge> getInEdges(){
+		return this.inEdges;
+	}
+
+	public List<Edge> getOutEdges(){
+		return this.outEdges;
 	}
 
 	@Override

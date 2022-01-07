@@ -38,13 +38,14 @@ public class Edge {
 	 */
 	private LineString geometry;
 
-	Edge(Vertex source, Vertex target,String id) {
-		if (source==null || target==null || id==null){
+	Edge(Vertex source, Vertex target) {
+		if (source==null || target==null){
 			throw new NullPointerException("Vertex is null");
 		} else {
 			this.source = source;
 			this.target = target;
-			this.id = id;
+			this.source.getOutEdges().add(this);
+			this.target.getInEdges().add(this);
 		}
 	}
 
@@ -67,10 +68,6 @@ public class Edge {
 		return source;
 	}
 
-	public void setSource(Vertex source) {
-		this.source = source;
-	}
-
 	/**
 	 * Cible avec rendu JSON sous forme d'identifiant
 	 * 
@@ -80,10 +77,6 @@ public class Edge {
 	@JsonIdentityReference(alwaysAsId = true)
 	public Vertex getTarget() {
 		return target;
-	}
-
-	public void setTarget(Vertex target) {
-		this.target = target;
 	}
 
 	/**
