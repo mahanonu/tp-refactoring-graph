@@ -33,12 +33,13 @@ public class Edge {
 	 */
 	private Vertex target;
 
-	public Edge(Vertex source, Vertex target) {
-		if (source==null || target==null){
+	Edge(Vertex source, Vertex target,String id) {
+		if (source==null || target==null || id==null){
 			throw new NullPointerException("Vertex is null");
 		} else {
 			this.source = source;
 			this.target = target;
+			this.id = id;
 		}
 	}
 
