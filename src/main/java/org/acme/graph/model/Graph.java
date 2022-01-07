@@ -78,7 +78,9 @@ public class Graph {
 			vertex = findVertex(coordinate);
 		} catch (NotFoundException e) {
 			/* création d'un nouveau sommet car non trouvé */
-			vertex = new Vertex(coordinate,Integer.toString(getVertices().size()));
+			vertex = new Vertex();
+			vertex.setCoordinate(coordinate);
+			vertex.setId(Integer.toString(getVertices().size()));
 			vertices.add(vertex);
 		}
 		return vertex;
@@ -100,14 +102,12 @@ public class Graph {
 	 * @return
 	 */
 	public List<Edge> getInEdges(Vertex vertex) {
-		List<Edge> result = new ArrayList<>();
-		for (Edge candidate : edges) {
-			if (candidate.getTarget() != vertex) {
-				continue;
-			}
-			result.add(candidate);
-		}
-		return result;
+		if (vertex.getInEdges()==null){
+			List<Edge> result = new ArrayList<>();
+			return result;
+		} else {
+			return vertex.getInEdges();
+		}	
 	}
 
 	/**
@@ -117,14 +117,12 @@ public class Graph {
 	 * @return
 	 */
 	public List<Edge> getOutEdges(Vertex vertex) {
-		List<Edge> result = new ArrayList<>();
-		for (Edge candidate : edges) {
-			if (candidate.getSource() != vertex) {
-				continue;
-			}
-			result.add(candidate);
+		if (vertex.getOutEdges()==null){
+			List<Edge> result = new ArrayList<>();
+			return result;
+		} else {
+			return vertex.getOutEdges();
 		}
-		return result;
 	}
 
 
@@ -137,7 +135,10 @@ public class Graph {
 	 * @return
 	 */
 	public Vertex createVertex(Coordinate coordinate, String id){
-		return new Vertex(coordinate, id);
+		Vertex vertex = new Vertex();
+		vertex.setCoordinate(coordinate);
+		vertex.setId(id);
+		return vertex;
 	}
 
 	/**
@@ -147,7 +148,9 @@ public class Graph {
 	 * @return
 	 */
 	public Edge createEdge(Vertex source, Vertex target, String id){
-		return new Edge(source,target,id);
+		Edge edge = new Edge(source,target);
+		edge.setId(id);
+		return edge;
 	}
 
 }
